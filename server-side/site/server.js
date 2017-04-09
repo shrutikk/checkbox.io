@@ -85,6 +85,11 @@ app.post('/api/study/admin/notify/', admin.notifyParticipant);
 //app.get('/api/design/survey/vote/stat/:id', votes.getSurveyStats );
 
 
+var server = app.listen(3002, function () { 
+    var host = server.address().address 
+    var port = server.address().port
+    console.log('App listening at http://%s:%s', host, port)
+});
 
-app.listen(3002);
+// app.listen(3002);
 console.log('Listening on port 3002...');

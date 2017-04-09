@@ -12,7 +12,7 @@
     "json5": "^0.5.1",
     "marked": "0.2.9",
     "mongodb": "^2.2.22",
+    "underscore": "^1.8.3",
     "validator": "^6.2.1"
   }
 }
-
