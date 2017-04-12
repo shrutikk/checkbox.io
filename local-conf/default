@@ -5,7 +5,7 @@ server {
 
   location / {
       try_files $uri $uri/ index.html /index.html;
-      proxy_pass http://localhost:8080;
+      proxy_pass http://52.33.25.188:8080;
   }
 
   location /api {
