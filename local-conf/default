@@ -5,7 +5,6 @@ server {
 
   location / {
       try_files $uri $uri/ index.html /index.html;
-      proxy_pass http://52.37.158.76:8080;
   }
 
   location /api {
