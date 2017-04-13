@@ -1,0 +1,59 @@
+- hosts: production
+  sudo: yes
+  gather_facts: false
+
+  pre_tasks:
+   - name: Install python
+     raw: sudo apt-get install -y python-simplejson
+   
+   - name: Update
+     raw: apt-get update
+
+  tasks:
+   - name: Install Nginx
+     apt: pkg=nginx
+
+   - name: Install Nodejs
+     apt: pkg=nodejs
+
+   - name: Create node link
+     command: ln -s /usr/bin/nodejs /usr/bin/node creates=/usr/bin/node
+
+   - name: Install git
+     apt: pkg=git
+
+   - name: Install npm
+     apt: pkg=npm
+
+   - name: Install mongo step1
+     raw: sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
+
+   - name: Install mongo step2
+     raw: echo "deb [ arch=amd64 ] http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+   - name: Update
+     raw: sudo apt-get update
+
+   - name: Install mongodb
+     apt: pkg=mongodb-org
+
+   - name: Clone repository Checkbox.io
+     git: repo=https://github.com/shrutikk/checkbox.io.git dest=/home/ubuntu/checkbox.io/
+
+   - name: Clone repository for Analysis Componenet
+     git: repo=https://github.com/shrutikk/Complexity.git dest=/home/ubuntu/analysis/
+
+   - name: NPM install
+     raw: npm install --prefix /home/ubuntu/checkbox.io/server-side/site/
+
+   - name: NPM install
+     raw: npm install --prefix /home/ubuntu/analysis/
+
+   - name: Overwrite nginx conf
+     raw: sudo cp /home/ubuntu/checkbox.io/local-conf/nginx.conf /etc/nginx/
+
+   - name: Overwrite nginx default
+     raw: sudo cp /home/ubuntu/checkbox.io/local-conf/default /etc/nginx/sites-available/
+
+   - name: Restart nginx
+     raw: sudo service nginx restart
