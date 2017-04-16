@@ -16,6 +16,10 @@ var client = redis.createClient(6379, '127.0.0.1', {}) ;
 
 client.lrange("features",function(err, value){
    console.log(value);
+   value.forEach(function(index, value){
+      var root = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
+      root.setAttribute( 'class', 'ff-'+ value );
+   });
 });
 
 app.configure(function () {
