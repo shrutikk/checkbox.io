@@ -15,23 +15,28 @@ var fs = require('fs');
 var redis = require('redis');
 
 var redisServer = fs.readFileSync('redis').toString().split("\n");
+console.log(redisServer);
 
 var client = redis.createClient(6379, redisServer[0], {}) ;
 
+setInterval( function () {
 client.lrange("features",0,-1,function(err, value){
    console.log(value);
-   var ftrs = JSON.parse(value);
-   var keys = Object.keys(ftrs);
-   for(var i = 0; i < keys.length; i++) {
-      if(keys[i] == "carousel") {
-         if(ftrs[keys[i]]) {
-            fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
-         }else{
-            fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
-         }
-      }
+   if(value.length > 0) {
+   	var ftrs = JSON.parse(value);
+   	var keys = Object.keys(ftrs);
+   	for(var i = 0; i < keys.length; i++) {
+      	   if(keys[i] == "carousel") {
+         	if(ftrs[keys[i]]) {
+            	  fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+           	}else{
+            	  fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+         	}
+           }
+   	}
    }
 });
+}, 2000);
 
 app.configure(function () {
     app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
