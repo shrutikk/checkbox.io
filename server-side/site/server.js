@@ -17,12 +17,19 @@ var redisServer = fs.readFileSync('redis').toString().split("\n");
 
 var client = redis.createClient(6379, redisServer[0], {}) ;
 
-client.lrange("features",function(err, value){
+client.lrange("features",0,-1,function(err, value){
    console.log(value);
-   value.forEach(function(index, value){
-     var ftr = JSON.parse(value);
-     // fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+value+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
-   });
+   var ftrs = JSON.parse(value);
+   var keys = Object.keys(ftrs);
+   for(var i = 0; i < keys.length; i++) {
+      if(keys[i] == "carousel") {
+         if(ftrs[keys[i]]) {
+            fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+         }else{
+            fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+         }
+      }
+   }
 });
 
 app.configure(function () {
