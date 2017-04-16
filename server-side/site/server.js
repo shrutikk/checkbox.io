@@ -1,20 +1,30 @@
-var express = require('express'),
+var express  = require('express'),
         cors = require('cors'),
-	marqdown = require('./marqdown.js'),
+	marqdown  = require('./marqdown.js'),
 	//routes = require('./routes/designer.js'),
 	//votes = require('./routes/live.js'),
 	//upload = require('./routes/upload.js'),
-	create = require('./routes/create.js'),
-	study = require('./routes/study.js'),
-	admin = require('./routes/admin.js')
+	create    = require('./routes/create.js'),
+	study     = require('./routes/study.js'),
+	admin     = require('./routes/admin.js')
 	;
 
 var app = express();
+
+var fs = require('fs');
 var redis = require('redis');
-var client = redis.createClient(6379, '127.0.0.1', {}) ;
+
+var redisServer = fs.readFileSync('redis').toString().split("\n");
+
+var client = redis.createClient(6379, redisServer[0], {}) ;
 
 client.lrange("features",function(err, value){
    console.log(value);
+   value.forEach(function(index, value){
+     var ftr = JSON.parse(value);
+     // fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+value+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+   });
+
 });
 
 app.configure(function () {
