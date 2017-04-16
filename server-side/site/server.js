@@ -10,6 +10,7 @@ var express  = require('express'),
 	;
 
 var app = express();
+
 var fs = require('fs');
 var redis = require('redis');
 
@@ -23,6 +24,7 @@ client.lrange("features",function(err, value){
      var ftr = JSON.parse(value);
      // fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+value+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
    });
+
 });
 
 app.configure(function () {
