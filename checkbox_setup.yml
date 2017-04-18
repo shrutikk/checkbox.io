@@ -38,16 +38,10 @@
      apt: pkg=mongodb-org
 
    - name: Clone repository Checkbox.io
-     git: repo=https://github.com/shrutikk/checkbox.io.git dest=/home/ubuntu/checkbox.io/
-
-   - name: Clone repository for Analysis Componenet
-     git: repo=https://github.com/shrutikk/Complexity.git dest=/home/ubuntu/analysis/
+     git: repo=https://github.com/shrutikk/checkbox.io.git dest=/home/ubuntu/checkbox.io/ version=production
 
    - name: NPM install
      raw: npm install --prefix /home/ubuntu/checkbox.io/server-side/site/
-
-   - name: NPM install
-     raw: npm install --prefix /home/ubuntu/analysis/
 
    - name: Overwrite nginx conf
      raw: sudo cp /home/ubuntu/checkbox.io/local-conf/nginx.conf /etc/nginx/
@@ -57,3 +51,6 @@
 
    - name: Restart nginx
      raw: sudo service nginx restart
+   
+   - name: Install Redis
+     raw: sudo apt-get -y install redis-server
