@@ -54,3 +54,4 @@
    
    - name: Install Redis
      raw: sudo apt-get -y install redis-server
+
