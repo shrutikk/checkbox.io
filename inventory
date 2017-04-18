@@ -19,5 +19,5 @@ node2 ansible_ssh_host=52.41.64.213 ansible_ssh_user=ubuntu ansible_ssh_private_
 
 
 [production]
-node0 ansible_ssh_host=52.88.108.101 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=devopsm3.pem
+node0 ansible_ssh_host=34.209.216.65 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=devopsm3.pem
 
