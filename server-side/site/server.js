@@ -27,12 +27,21 @@ client.lrange("features",0,-1,function(err, value){
    	var keys = Object.keys(ftrs);
    	for(var i = 0; i < keys.length; i++) {
       	   if(keys[i] == "carousel") {
-         	if(ftrs[keys[i]]) {
-            	  fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
-           	}else{
-            	  fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
-         	}
+               if(ftrs[keys[i]]) {
+                    fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+               }else{
+                    fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
+               }
+           }else if(keys[i] == "download"){
+               if(ftrs[keys[i]]){
+                  app.get('/api/study/admin/download/:token', admin.download );
+               }else{
+                  app.get('/api/study/admin/download/:token', function(){
+                    res.status(500).send('Download has been disabled!'); 
+                  });
+               }
            }
+            
    	}
    }
 });
@@ -86,7 +95,6 @@ app.post('/api/study/vote/submit/', cors(corsOptions), study.submitVote );
 
 //// ADMIN ROUTES
 app.get('/api/study/admin/:token', admin.loadStudy );
-app.get('/api/study/admin/download/:token', admin.download );
 app.get('/api/study/admin/assign/:token', admin.assignWinner);
 
 app.post('/api/study/admin/open/', admin.openStudy );
