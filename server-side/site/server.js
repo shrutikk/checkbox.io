@@ -15,13 +15,11 @@ var fs = require('fs');
 var redis = require('redis');
 
 var redisServer = fs.readFileSync('../../redis').toString().split("\n");
-console.log(redisServer);
 
 var client = redis.createClient(6379, redisServer[0], {}) ;
 
 setInterval( function () {
 client.lrange("features",0,-1,function(err, value){
-   console.log(value);
    if(value.length > 0) {
    	var ftrs = JSON.parse(value);
    	var keys = Object.keys(ftrs);
