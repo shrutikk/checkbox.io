@@ -36,7 +36,7 @@ client.lrange("features",0,-1,function(err, value){
                if(ftrs[keys[i]]){
                   app.get('/api/study/admin/download/:token', admin.download );
                }else{
-                  app.get('/api/study/admin/download/:token', function(){
+                  app.get('/api/study/admin/download/:token', function(req, res){
                     res.status(500).send('Download has been disabled!'); 
                   });
                }
@@ -81,7 +81,9 @@ app.post('/api/design/survey',
 //app.post('/api/design/survey/close/', routes.closeSurvey );
 //app.post('/api/design/survey/notify/', routes.notifyParticipant );
 
-
+app.get('/',function(req, res){
+  res.status(500).send('Something has broken'); 
+});
 //// ################################
 //// Towards general study management.
 app.get('/api/study/load/:id', study.loadStudy );
