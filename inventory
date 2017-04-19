@@ -10,6 +10,6 @@ canary ansible_ssh_host=52.43.100.21 ansible_ssh_user=ubuntu ansible_ssh_private
 itnode1 ansible_ssh_host=152.1.13.247 ansible_ssh_user=dnair ansible_ssh_private_key_file=/var/lib/jenkins/.ssh/id_rsa
 
 [production]
-node0 ansible_ssh_host=52.40.37.244 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=devopsm3.pem
-node1 ansible_ssh_host=35.164.175.125 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=devopsm3.pem
+node0 ansible_ssh_host=52.40.37.244 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/devopsm3.pem
+node1 ansible_ssh_host=35.164.175.125 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/devopsm3.pem
 
