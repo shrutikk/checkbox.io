@@ -1,4 +1,4 @@
-- hosts: production
+- hosts: canary
   sudo: yes
   gather_facts: false
 
