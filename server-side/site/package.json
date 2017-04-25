@@ -15,5 +15,13 @@
     "underscore": "^1.8.3",
     "validator": "^6.2.1",
     "redis": "^2.7.1"
+  },
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint  server.js"
+  },
+  "pre-commit": [ "lint" ],
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "pre-commit": "^1.2.2"
   }
 }
