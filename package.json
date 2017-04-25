@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "lint": "echo 'linting the code' && eslint  /server-site/site/server.js" ,
-     "precommit-msg": "echo 'hello Pre-commit checks...' && exit 0"
+    "lint": "eslint  /server-site/site/server.js --cache --ignore-pattern .gitignore" ,
+     "precommit-msg": "echo 'hello Pre-commit checks...' && exit 1"
   },
-  "pre-commit": [ "precommit-msg" ,"lint" ],
+  "pre-commit": [ "lint" ],
   "dependencies": {
     "archiver": "~0.4.6",
     "cors": "^2.7.1",
