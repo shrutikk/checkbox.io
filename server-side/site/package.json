@@ -17,9 +17,10 @@
     "redis": "^2.7.1"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint  server.js"
+    "lint": "./node_modules/.bin/eslint  server.js" ,
+     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
   },
-  "pre-commit": [ "lint" ],
+  "pre-commit": [ "precommit-msg" ,"lint" ],
   "devDependencies": {
     "eslint": "^3.19.0",
     "pre-commit": "^1.2.2"
