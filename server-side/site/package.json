@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint  server.js" ,
-     "precommit-msg": "echo 'Pre-commit checks...' && exit 0"
+     "precommit-msg": "echo 'hi Pre-commit checks...' && exit 0"
   },
   "pre-commit": [ "precommit-msg" ,"lint" ],
   "devDependencies": {
