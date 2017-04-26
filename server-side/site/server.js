@@ -1,20 +1,18 @@
-var express  = require('express'),
-        cors = require('cors'),
-	marqdown  = require('./marqdown.js'),
-	//routes = require('./routes/designer.js'),
-	//votes = require('./routes/live.js'),
-	//upload = require('./routes/upload.js'),
-	create    = require('./routes/create.js'),
-	study     = require('./routes/study.js'),
-	admin     = require('./routes/admin.js')
-	;
+var express  = require('express');
+var cors = require('cors');
+var marqdown = require('./marqdown.js');
+var create = require('./routes/create.js');
+var study = require('./routes/study.js');
+var admin = require('./routes/admin.js');
 
 var app = express();
 
 var fs = require('fs');
 var redis = require('redis');
 
-var redisServer = fs.readFileSync('../../redis').toString().split("\n");
+
+var redisServer = fs.readFileSync('../../redis').toString().split('\n');
+
 
 var client = redis.createClient(6379, redisServer[0], {}) ;
 
@@ -24,17 +22,17 @@ client.lrange("features",0,-1,function(err, value){
    	var ftrs = JSON.parse(value);
    	var keys = Object.keys(ftrs);
    	for(var i = 0; i < keys.length; i++) {
-      	   if(keys[i] == "carousel") {
+      	   if(keys[i] == 'carousel') {
                if(ftrs[keys[i]]) {
                     fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/'+keys[i]+'.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
                }else{
                     fs.createReadStream('/home/ubuntu/checkbox.io/public_html/feature_templates/index.html').pipe(fs.createWriteStream('/home/ubuntu/checkbox.io/public_html/index.html')); 
                }
-           }else if(keys[i] == "download"){
+           }else if(keys[i] == 'download'){
                if(ftrs[keys[i]]){
                   app.get('/api/study/admin/download/:token', admin.download );
                }else{
-                  app.get('/api/study/admin/download/:token', function(){
+                  app.get('/api/study/admin/download/:token', function(req, res){
                     res.status(500).send('Download has been disabled!'); 
                   });
                }
@@ -79,7 +77,9 @@ app.post('/api/design/survey',
 //app.post('/api/design/survey/close/', routes.closeSurvey );
 //app.post('/api/design/survey/notify/', routes.notifyParticipant );
 
-
+app.get('/',function(req, res){
+  res.status(500).send('Something has broken'); 
+});
 //// ################################
 //// Towards general study management.
 app.get('/api/study/load/:id', study.loadStudy );

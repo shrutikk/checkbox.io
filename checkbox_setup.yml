@@ -1,4 +1,4 @@
-- hosts: production
+- hosts: canary
   sudo: yes
   gather_facts: false
 
@@ -38,7 +38,7 @@
      apt: pkg=mongodb-org
 
    - name: Clone repository Checkbox.io
-     git: repo=https://github.com/shrutikk/checkbox.io.git dest=/home/ubuntu/checkbox.io/ version=production
+     git: repo=https://github.com/shrutikk/checkbox.io.git dest=/home/ubuntu/checkbox.io/ version=canary
 
    - name: NPM install
      raw: npm install --prefix /home/ubuntu/checkbox.io/server-side/site/
