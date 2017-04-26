@@ -10,7 +10,9 @@ var app = express();
 var fs = require('fs');
 var redis = require('redis');
 
+
 var redisServer = fs.readFileSync('../../redis').toString().split('\n');
+
 
 var client = redis.createClient(6379, redisServer[0], {}) ;
 
